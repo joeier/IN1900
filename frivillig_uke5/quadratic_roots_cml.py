@@ -19,7 +19,7 @@ def quad_roots(a, b, c):
     elif discriminant > 0:
 
         root_part_1 = float(np.sqrt(discriminant))
-        root_part_2 = float(-np.sqrt(discriminant))
+        root_part_2 = -root_part_1
 
         return sorted([
             quadratic_formula(a, b, root_part_1),

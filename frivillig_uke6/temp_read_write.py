@@ -23,21 +23,23 @@ def extract_data(filename):
 
 def make_weather_data(data):
 
-    avg = float(np.mean(data["temps"]))
+    templist = data["temps"]
+
+    avg = float(np.mean(templist))
 
     data["Average"] = round(avg, 1)
-    data["Lowest"] = np.min(data["temps"])
-    data["Highest"] = np.max(data["temps"])
+    data["Lowest"] = np.min(templist)
+    data["Highest"] = np.max(templist)
 
     return data
 
 
 def print_data(dataset):
 
-    time = dataset["filename"].split("_")
+    file_subnames = dataset["filename"].split("_")
 
-    month = time[1]
-    year = time[2].split(".")[0]
+    month = file_subnames[1]
+    year = file_subnames[2].split(".")[0] # file_subnames[2] is "{year}.txt", therefore split(".")
 
     print(f"Temperature for {month} {year}")
 
@@ -48,8 +50,19 @@ def print_data(dataset):
     print("\n")
 
 
+def write_formatting(filename, dataset1, dataset2):
+
+    with open(filename, "w") as f:
+
+        
+
+
+# a)
 oct_1945 = make_weather_data(extract_data("temp_oct_1945.txt"))
 oct_2014 = make_weather_data(extract_data("temp_oct_2014.txt"))
 
 print_data(oct_1945)
 print_data(oct_2014)
+
+
+# b)

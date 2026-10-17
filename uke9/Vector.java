@@ -1,9 +1,0 @@
-class Vector {
-    
-    public Vector() {
-
-        
-
-    }    
-
-}

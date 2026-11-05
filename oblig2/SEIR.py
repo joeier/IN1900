@@ -61,20 +61,26 @@ def plot_SEIR(t, u, components=["S", "I", "Ia", "R"]):
         "R": 5
     }
     
-    plot_keys = u_index.keys()
-    all_components = list(plot_keys)
+    u_keys = u_index.keys()
+    all_components = list(u_keys)
     for key in all_components:
         if key not in components:
             u_index.pop(key)
     
     N = len(t)
     plot_data = {}
-    for key in plot_keys:
+    for key in u_keys:
         plot_data[key] = np.zeros(N)
 
     for i in range(N):
         for key in plot_data.keys():
             plot_data[key][i] = u[i][u_index[key]]
+    
+    # # Disse linjene printer det største antallet smittede som trenger ventilatorbehandling. Med de parameterene vi bruker i oppgaven, får vi ca. 12927 pasienter som trenger ventilator. Det er langt mer enn de 700 som vi har i Norge
+    # I_peak = max(plot_data["I"])
+    # hospital = I_peak / 100 * 20
+    # ventilator = hospital / 100 * 25
+    # print(ventilator)
 
     for key, value in plot_data.items():
         plt.plot(t, value, label=key)
@@ -83,3 +89,10 @@ def plot_SEIR(t, u, components=["S", "I", "Ia", "R"]):
     plt.legend()
     plt.show()
 
+if __name__ == "__main__":
+    test_SEIR_beta_const()
+    test_SEIR_beta_var()
+    model = SEIR(beta = 0.4)
+    t, u = solve_SEIR(model, T = 200, N = 400,
+    S_0 = 5.5e6, E2_0 = 100)
+    plot_SEIR(t,u)
